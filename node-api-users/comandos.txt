@@ -1,0 +1,11 @@
+npm init: Crea un proyecto de Node.js
+
+npm run dev
+
+npm install nodemon -D: Instalar nodemon de forma local
+
+git commit -m ""
+
+git push --set-upstream origin master
+
+Integración con jenkins: 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
