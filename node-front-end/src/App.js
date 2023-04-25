@@ -16,12 +16,14 @@ const url = "http://localhost:3001/api/users"
 
 class App extends React.Component {
 
+  //Petición GET a la API 
   getUsers=()=>{
     axios.get(url).then(response=>{
       this.setState({data: response.data})
     })
   }
 
+  //Petición POST a la API
   postUsers=()=>{
     axios.post(url, this.state.form).then(response=>{
       this.cerrarModalInsertar()
@@ -31,6 +33,7 @@ class App extends React.Component {
     })
   }
 
+  //Petición PUT a la API
   putUsers=()=>{
     axios.put(url+"/"+this.state.form.id, this.state.form).then(response=>{
       this.cerrarModalActualizar()
@@ -40,6 +43,7 @@ class App extends React.Component {
     })
   }
 
+  //Petición DELETE a la API
   deleteUsers=(dato)=>{
     var opcion = window.confirm("Estás Seguro que deseas Eliminar el elemento "+dato.userName);
 
@@ -52,10 +56,14 @@ class App extends React.Component {
     }
   }
 
+  //Permite ejecutar la función getUsers() al ejecutar el programa
   componentDidMount(){
     this.getUsers()
   }
 
+  //data: todos los registros traidos por la petición GET a la API
+  //Modales: hacen que las ventanas popup de actualizar y crear se mantentan ocultas por defecto
+  //form: variable donde se guardan los datos ingresados en los formularios de crear y actualizar los usuarios
   state = {
     data: [],
     modalActualizar: false,
@@ -86,21 +94,6 @@ class App extends React.Component {
 
   cerrarModalInsertar = () => {
     this.setState({ modalInsertar: false });
-  };
-
-  eliminar = (dato) => {
-    var opcion = window.confirm("Estás Seguro que deseas Eliminar el elemento "+dato.userName);
-    if (opcion === true) {
-      var contador = 0;
-      var arreglo = this.state.data;
-      arreglo.map((registro) => {
-        if (dato.id === registro.id) {
-          arreglo.splice(contador, 1);
-        }
-        contador++;
-      });
-      this.setState({ data: arreglo, modalActualizar: false });
-    }
   };
 
   handleChange = (e) => {
@@ -141,14 +134,16 @@ class App extends React.Component {
                     >
                       Editar
                     </Button>{" "}
-                    <Button style={{backgroundColor: "#DB3649", padding: "10px", border: "0px", borderRadius: "10px", color: "white"}} onClick={()=> this.deleteUsers(dato)}>Eliminar</Button>
+                    <Button style={{backgroundColor: "#DB3649", padding: "10px", border: "0px", borderRadius: "10px", color: "white"}} 
+                    onClick={()=> this.deleteUsers(dato)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </Table>
         </Container>
-
+        
+        {/*Popup de editar usuario*/}
         <Modal isOpen={this.state.modalActualizar}>
           <ModalHeader>
            <div><h3>Editar Usuario</h3></div>
@@ -198,8 +193,7 @@ class App extends React.Component {
           </ModalFooter>
         </Modal>
 
-
-
+        {/*Popup de crear usuario*/}
         <Modal isOpen={this.state.modalInsertar}>
           <ModalHeader>
            <div><h3>Crear Usuario</h3></div>

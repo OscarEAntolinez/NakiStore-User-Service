@@ -9,3 +9,7 @@ git commit -m ""
 git push --set-upstream origin master
 
 Integración con jenkins: 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
+
+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
+
+tcnttzlfpkpkagla
