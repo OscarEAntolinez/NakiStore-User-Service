@@ -10,7 +10,7 @@ import { ModalBody } from 'reactstrap';
 import { ModalHeader } from 'reactstrap';
 import { FormGroup } from 'reactstrap';
 import { ModalFooter } from 'reactstrap';
-import axios from 'axios'
+import { axios } from 'axios';
 import './App.css';
 
 const url = "http://localhost:3001/api/users"
