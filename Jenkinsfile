@@ -17,11 +17,12 @@ pipeline {
                 dir("node-front-end"){
                     sh 'npm install bootstrap reactstrap'
                     sh 'npm install axios'
-                    //sh 'npm install react'
+                    sh 'npm install react react-dom react-scripts'
+                    sh 'npm install --save-dev web-vitals'
                 }
 
                 dir("node-api-users"){
-                    //sh 'npm install nodemon'
+                    sh 'npm install nodemon'
                     sh 'npm install express'
                     sh 'npm install cors'
                     sh 'npm install mongoose'
@@ -57,12 +58,14 @@ pipeline {
             }
         }
 
-       /* stage('Deploy') {
+       stage('Deploy') {
             steps {
             // Desplegar la aplicación (puedes personalizar este paso según tus necesidades)
             // Ejemplo: copiar archivos al servidor de producción
-            sh 'rsync -avz ./dist user@servidor:/ruta/destino'
+            //sh 'rsync -avz ./dist user@servidor:/ruta/destino'
+
+            //sh 'rsync -avz -e "ssh -i O:\Emmasssddaaaddss\uni\Semestre 8\Electiva2\clase4\electiva.pen" ./dist ec2-user@18.207.122.19:/prueba'
             }
-        }*/
+        }
     }
 }
