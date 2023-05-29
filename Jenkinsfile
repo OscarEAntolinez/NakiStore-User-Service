@@ -64,7 +64,7 @@ pipeline {
             // Ejemplo: copiar archivos al servidor de producción
             //sh 'rsync -avz ./dist user@servidor:/ruta/destino'
 
-            //sh 'rsync -avz -e "ssh -i O:\Emmasssddaaaddss\uni\Semestre 8\Electiva2\clase4\electiva.pen" ./dist ec2-user@18.207.122.19:/prueba'
+            
             echo "probando"
             }
         }
