@@ -1,36 +1,68 @@
 pipeline {
     agent any
-    triggers {
-        pollSCM('* * * * *')
-    }
+
     stages {
-        stage("Compile") {
+        stage('Checkout') {
             steps {
-                sh "./gradlew compileJava"
+                // Clonar el repositorio
+                git 'https://github.com/OscarEAntolinez/NakiStore-User-Service.git'
             }
         }
-        stage("Unit test") {
+
+        stage('Install Dependencies') {
             steps {
-                sh "./gradlew test"
-            }
-        }
-        stage("Code coverage") {
-            steps {
-        	    sh "./gradlew jacocoTestReport"
-        	 	publishHTML (target: [
-         	        reportDir: 'build/reports/jacoco/test/html',
-         			reportFiles: 'index.html',
-         			reportName: 'JacocoReport'
-         	    ])
-         		sh "./gradlew jacocoTestCoverageVerification"
-         	}
-        }
-        stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('SonarQubePruebas') {
-                    sh './gradlew sonarqube'
+                // Instalar dependencias con npm
+                //sh 'npm install'
+
+                dir("node-front-end"){
+                    sh 'npm install bootstrap reactstrap'
+                    sh 'npm install axios'
+                    //sh 'npm install react'
+                }
+
+                dir("node-api-users"){
+                    //sh 'npm install nodemon'
+                    sh 'npm install express'
+                    sh 'npm install cors'
+                    sh 'npm install mongoose'
                 }
             }
         }
+
+        stage('Run Tests') {
+            steps {
+
+                dir("node-front-end"){
+                    sh 'npm test'
+                }
+
+                /*dir("node-api-users"){
+                    sh 'npm test'
+                }*/
+            }
+        }
+
+        stage('Build') {
+            steps {
+            // Construir la aplicación con npm run build
+            //sh 'npm run build'
+
+                dir("node-front-end"){
+                    sh 'npm build'
+                }
+
+                /*dir("node-api-users"){
+                    sh 'npm build'
+                }*/
+            }
+        }
+
+       /* stage('Deploy') {
+            steps {
+            // Desplegar la aplicación (puedes personalizar este paso según tus necesidades)
+            // Ejemplo: copiar archivos al servidor de producción
+            sh 'rsync -avz ./dist user@servidor:/ruta/destino'
+            }
+        }*/
     }
 }
