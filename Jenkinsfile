@@ -1,6 +1,8 @@
 pipeline {
     agent any
 
+    tools {nodejs "nodejs"}
+
     stages {
         stage('Checkout') {
             steps {
@@ -15,11 +17,17 @@ pipeline {
                 //sh 'npm install'
 
                 dir("node-front-end"){
-                    sh 'npm install'
+                    sh 'npm install bootstrap reactstrap'
+                    sh 'npm install axios'
+                    sh 'npm install react react-dom react-scripts'
+                    sh 'npm install --save-dev web-vitals'
                 }
 
                 dir("node-api-users"){
-                    sh 'npm install'
+                    sh 'npm install nodemon'
+                    sh 'npm install express'
+                    sh 'npm install cors'
+                    sh 'npm install mongoose'
                 }
             }
         }
