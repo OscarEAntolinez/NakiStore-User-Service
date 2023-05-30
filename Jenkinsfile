@@ -34,7 +34,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-
+                echo "Test"
                 /*dir("node-front-end"){
                     sh 'npm test'
                 }*/
