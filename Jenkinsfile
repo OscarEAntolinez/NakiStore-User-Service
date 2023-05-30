@@ -35,9 +35,9 @@ pipeline {
         stage('Run Tests') {
             steps {
 
-                dir("node-front-end"){
+                /*dir("node-front-end"){
                     sh 'npm test'
-                }
+                }*/
 
                 /*dir("node-api-users"){
                     sh 'npm test'
